@@ -212,10 +212,17 @@ class MRZ {
 
   void _setNames(List<String> nameIds) {
     if (nameIds.isNotEmpty) {
-      lastName = nameIds[0];
+      final value = nameIds[0].trim();
+      lastName = value.isEmpty ? "N/A" : value;
+    } else {
+      lastName = "N/A";
     }
+
     if (nameIds.length > 1) {
-      firstName = nameIds.sublist(1).join(' ');
+      final combined = nameIds.sublist(1).join(' ').trim();
+      firstName = combined.isEmpty ? "N/A" : combined;
+    } else {
+      firstName = "N/A";
     }
   }
 
