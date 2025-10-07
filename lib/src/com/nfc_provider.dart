@@ -97,4 +97,22 @@ class NfcProvider extends ComProvider {
       throw NfcProviderError.fromException(e);
     }
   }
+
+  /// Forcefully finish the current NFC session, even if no tag was acquired.
+  Future<void> nfcFinish({
+    String? iosAlertMessage,
+    String? iosErrorMessage,
+    bool closeWebUSB = false,
+  }) async {
+    try {
+      _tag = null;
+      await FlutterNfcKit.finish(
+        iosAlertMessage: iosAlertMessage,
+        iosErrorMessage: iosErrorMessage,
+        closeWebUSB: closeWebUSB,
+      );
+    } on Exception catch (e) {
+      throw NfcProviderError.fromException(e);
+    }
+  }
 }
